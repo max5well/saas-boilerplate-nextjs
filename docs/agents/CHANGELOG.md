@@ -1,5 +1,21 @@
 # Agent Changelog
 
+## Session 4 — Email Agent (2026-03-26)
+
+### Added
+- 6 email templates using `@react-email/components` + Tailwind:
+  - `verification-email.tsx` — email verification with security note
+  - `password-reset-email.tsx` — password reset with expiry and IP tracking
+  - `payment-receipt.tsx` — invoice-style receipt with line items
+  - `subscription-started.tsx` — welcome to plan with features list
+  - `subscription-updated.tsx` — plan change comparison
+  - `subscription-canceled.tsx` — cancellation with feedback + win-back
+- 3 shared components: `EmailLayout`, `EmailButton`, `EmailFooter`
+- `email-sender.ts` utility with type-safe convenience senders per template
+- `index.ts` barrel export for the entire email feature
+- Stripe webhook integration: subscription lifecycle + payment receipt emails
+- `invoice.payment_succeeded` event handling added to webhook route
+
 ## Session 3: Frontend Agent - UI/UX Enhancements
 
 ### Dark Mode Implementation
