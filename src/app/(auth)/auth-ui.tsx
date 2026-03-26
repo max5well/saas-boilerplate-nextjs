@@ -64,7 +64,7 @@ export function AuthUI({
   }
 
   return (
-    <section className='mt-16 flex w-full flex-col gap-16 rounded-lg bg-black p-10 px-4 text-center'>
+    <section className='mt-16 flex w-full flex-col gap-16 rounded-lg bg-card p-10 px-4 text-center'>
       <div className='flex flex-col gap-4'>
         <Image src='/logo.png' width={80} height={80} alt='' className='m-auto' />
         <h1 className='text-lg'>{titleMap[mode]}</h1>
@@ -90,14 +90,14 @@ export function AuthUI({
         <Collapsible open={emailFormOpen} onOpenChange={setEmailFormOpen}>
           <CollapsibleTrigger asChild>
             <button
-              className='text-neutral6 flex w-full items-center justify-center gap-2 rounded-md bg-zinc-900 py-4 font-medium transition-all hover:bg-zinc-800 disabled:bg-neutral-700 disabled:text-black'
+              className='flex w-full items-center justify-center gap-2 rounded-md bg-muted py-4 font-medium transition-all hover:bg-accent disabled:bg-neutral-700 disabled:text-black'
               disabled={pending}
             >
               Continue with Email
             </button>
           </CollapsibleTrigger>
           <CollapsibleContent>
-            <div className='mt-[-2px] w-full rounded-b-md bg-zinc-900 p-8'>
+            <div className='mt-[-2px] w-full rounded-b-md bg-muted p-8'>
               <form onSubmit={handleEmailSubmit}>
                 <Input
                   type='email'
@@ -120,7 +120,7 @@ export function AuthUI({
         </Collapsible>
       </div>
       {mode === 'login' && (
-        <Link href='/reset-password' className='text-sm text-neutral-400 underline'>
+        <Link href='/reset-password' className='text-sm text-muted-foreground underline'>
           Forgot your password?
         </Link>
       )}

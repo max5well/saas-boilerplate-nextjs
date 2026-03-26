@@ -56,7 +56,7 @@ export default function UpdatePasswordPage() {
   }
 
   return (
-    <section className='rounded-lg bg-black px-4 py-16'>
+    <section className='rounded-lg bg-card px-4 py-16'>
       <h1 className='mb-8 text-center'>Set new password</h1>
 
       <div className='m-auto w-full max-w-md'>

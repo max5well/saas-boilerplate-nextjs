@@ -57,10 +57,10 @@ export function PricingCard({
 
   return (
     <WithSexyBorder variant={metadata.priceCardVariant} className='w-full flex-1'>
-      <div className='flex w-full flex-col rounded-md border border-zinc-800 bg-black p-4 lg:p-8'>
+      <div className='flex w-full flex-col rounded-md border border-border bg-card p-4 lg:p-8'>
         <div className='p-4'>
           <div className='mb-1 text-center font-alt text-xl font-bold'>{product.name}</div>
-          <div className='flex justify-center gap-0.5 text-zinc-400'>
+          <div className='flex justify-center gap-0.5 text-muted-foreground'>
             <span className='font-semibold'>
               {yearPrice && isBillingIntervalYearly
                 ? '$' + yearPrice / 100
@@ -110,7 +110,7 @@ function CheckItem({ text }: { text: string }) {
   return (
     <div className='flex items-center gap-2'>
       <IoCheckmark className='my-auto flex-shrink-0 text-slate-500' />
-      <p className='text-sm font-medium text-white first-letter:capitalize'>{text}</p>
+      <p className='text-sm font-medium text-foreground first-letter:capitalize'>{text}</p>
     </div>
   );
 }

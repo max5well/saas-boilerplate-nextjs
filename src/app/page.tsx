@@ -18,7 +18,7 @@ export default async function HomePage() {
 function HeroSection() {
   return (
     <section className='relative overflow-hidden lg:overflow-visible'>
-      <Container className='relative rounded-lg bg-black py-20 lg:py-[140px]'>
+      <Container className='relative rounded-lg bg-card py-20 lg:py-[140px]'>
         <div className='relative z-10 flex flex-col gap-5 lg:max-w-xl lg:pl-8'>
           <div className='w-fit rounded-full bg-gradient-to-r from-[#616571] via-[#7782A9] to-[#826674] px-4 py-1 '>
             <span className='font-alt text-sm font-semibold text-black mix-blend-soft-light'>
@@ -46,7 +46,7 @@ function HeroSection() {
 
 function ExamplesSection() {
   return (
-    <section className='flex flex-col gap-4 overflow-hidden rounded-lg bg-black py-8'>
+    <section className='flex flex-col gap-4 overflow-hidden rounded-lg bg-card py-8'>
       <div className='flex justify-center gap-4'>
         <Image
           className='flex-shrink-0'
