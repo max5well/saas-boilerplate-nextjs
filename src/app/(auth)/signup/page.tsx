@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation';
 
+import { signInWithEmail, signInWithOAuth } from '@/features/auth/actions/auth-actions';
 import { getSession } from '@/features/account/controllers/get-session';
 import { getSubscription } from '@/features/account/controllers/get-subscription';
 
-import { signInWithEmail, signInWithOAuth } from '../auth-actions';
 import { AuthUI } from '../auth-ui';
 
 export default async function SignUp() {

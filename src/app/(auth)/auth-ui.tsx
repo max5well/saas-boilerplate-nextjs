@@ -119,6 +119,11 @@ export function AuthUI({
           </CollapsibleContent>
         </Collapsible>
       </div>
+      {mode === 'login' && (
+        <Link href='/reset-password' className='text-sm text-neutral-400 underline'>
+          Forgot your password?
+        </Link>
+      )}
       {mode === 'signup' && (
         <span className='text-neutral5 m-auto max-w-sm text-sm'>
           By clicking continue, you agree to our{' '}
