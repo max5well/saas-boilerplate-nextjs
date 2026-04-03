@@ -9,11 +9,12 @@ import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
+import { siteConfig } from '@/config/site';
 import { ActionResponse } from '@/types/action-response';
 
 const titleMap = {
-  login: 'Login to UPDATE_THIS_WITH_YOUR_APP_DISPLAY_NAME',
-  signup: 'Join UPDATE_THIS_WITH_YOUR_APP_DISPLAY_NAME and start generating banners for free',
+  login: `Login to ${siteConfig.name}`,
+  signup: `Join ${siteConfig.name} — get started for free`,
 } as const;
 
 export function AuthUI({

@@ -9,11 +9,10 @@
       "method": "post",
       "params": {
         "name": "Basic",
-        "description": "Perfect product for small businesses.",
+        "description": "Perfect for individuals and small projects.",
         "metadata": {
           "price_card_variant": "basic",
-          "generated_images": 10,
-          "image_editor": "basic",
+          "features": "3 projects,1 GB storage,Community access",
           "support_level": "email"
         }
       }
@@ -54,12 +53,11 @@
       "method": "post",
       "params": {
         "name": "Pro",
-        "description": "Perfect product for growing or large businesses.",
+        "description": "For growing teams that need more power.",
         "metadata": {
           "price_card_variant": "pro",
-          "generated_images": 100,
-          "image_editor": "pro",
-          "support_level": "live"
+          "features": "Unlimited projects,10 GB storage,Priority access,Advanced analytics",
+          "support_level": "priority"
         }
       }
     },
@@ -99,11 +97,11 @@
       "method": "post",
       "params": {
         "name": "Enterprise",
-        "description": "Perfect product for enterprises.",
+        "description": "Custom solutions for large organizations.",
         "metadata": {
           "price_card_variant": "enterprise",
-          "image_editor": "pro",
-          "support_level": "live"
+          "features": "Everything in Pro,Unlimited storage,Custom integrations,SLA guarantee",
+          "support_level": "dedicated"
         }
       }
     }

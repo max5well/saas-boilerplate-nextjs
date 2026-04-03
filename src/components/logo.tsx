@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { siteConfig } from '@/config/site';
+
 export function Logo() {
   return (
     <Link href='/' className='flex w-fit items-center gap-2'>
@@ -10,9 +12,9 @@ export function Logo() {
         height={40}
         priority
         quality={100}
-        alt='UPDATE_THIS_WITH_YOUR_APP_DISPLAY_NAME logo mark'
+        alt={`${siteConfig.name} logo mark`}
       />
-      <span className='font-alt text-xl text-white'>UPDATE_THIS_WITH_YOUR_APP_DISPLAY_NAME</span>
+      <span className='font-alt text-xl text-white'>{siteConfig.name}</span>
     </Link>
   );
 }

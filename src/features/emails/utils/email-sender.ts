@@ -1,8 +1,9 @@
 import { createElement, type ReactElement } from 'react';
 
+import { siteConfig } from '@/config/site';
 import { resendClient } from '@/libs/resend/resend-client';
 
-const FROM_ADDRESS = 'YourApp <noreply@yourdomain.com>';
+const FROM_ADDRESS = siteConfig.email.from;
 
 export interface SendEmailOptions {
   to: string | string[];
@@ -31,7 +32,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<SendEmailRes
       to: Array.isArray(to) ? to : [to],
       subject,
       react,
-      reply_to: replyTo,
+      replyTo,
       tags,
     });
 
@@ -40,9 +41,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<SendEmailRes
       return { success: false, error: error.message };
     }
 
-    console.log(
-      `[Email] Sent "${subject}" to ${Array.isArray(to) ? to.join(', ') : to} (id: ${data?.id})`,
-    );
+    console.log(`[Email] Sent "${subject}" to ${Array.isArray(to) ? to.join(', ') : to} (id: ${data?.id})`);
     return { success: true, data: { id: data?.id ?? '' } };
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown email error';
@@ -62,7 +61,7 @@ import { SubscriptionCanceled } from '../subscription-canceled';
 
 export async function sendVerificationEmail(
   to: string,
-  props: { userName?: string; verificationUrl: string; expiresInMinutes?: number },
+  props: { userName?: string; verificationUrl: string; expiresInMinutes?: number }
 ) {
   return sendEmail({
     to,
@@ -79,7 +78,7 @@ export async function sendPasswordResetEmail(
     resetUrl: string;
     expiresInMinutes?: number;
     ipAddress?: string;
-  },
+  }
 ) {
   return sendEmail({
     to,
@@ -102,7 +101,7 @@ export async function sendPaymentReceiptEmail(
     total: number;
     currency?: string;
     billingPortalUrl: string;
-  },
+  }
 ) {
   return sendEmail({
     to,
@@ -125,7 +124,7 @@ export async function sendSubscriptionStartedEmail(
     dashboardUrl: string;
     billingPortalUrl: string;
     features?: string[];
-  },
+  }
 ) {
   return sendEmail({
     to,
@@ -149,7 +148,7 @@ export async function sendSubscriptionUpdatedEmail(
     nextBillingDate: string;
     prorationAmount?: number;
     billingPortalUrl: string;
-  },
+  }
 ) {
   return sendEmail({
     to,
@@ -167,7 +166,7 @@ export async function sendSubscriptionCanceledEmail(
     accessEndDate: string;
     feedbackUrl: string;
     resubscribeUrl: string;
-  },
+  }
 ) {
   return sendEmail({
     to,

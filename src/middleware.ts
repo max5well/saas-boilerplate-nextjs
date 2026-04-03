@@ -1,8 +1,13 @@
-import { type NextRequest } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 import { updateSession } from '@/libs/supabase/supabase-middleware-client';
 
 export async function middleware(request: NextRequest) {
+  // Skip auth middleware when Supabase isn't configured yet (fresh clone)
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return NextResponse.next();
+  }
+
   return await updateSession(request);
 }
 
