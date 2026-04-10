@@ -179,6 +179,7 @@ export interface Database {
           full_name: string | null;
           id: string;
           payment_method: Json | null;
+          role: Database['public']['Enums']['user_role'];
         };
         Insert: {
           avatar_url?: string | null;
@@ -186,6 +187,7 @@ export interface Database {
           full_name?: string | null;
           id: string;
           payment_method?: Json | null;
+          role?: Database['public']['Enums']['user_role'];
         };
         Update: {
           avatar_url?: string | null;
@@ -193,6 +195,7 @@ export interface Database {
           full_name?: string | null;
           id?: string;
           payment_method?: Json | null;
+          role?: Database['public']['Enums']['user_role'];
         };
         Relationships: [
           {
@@ -214,6 +217,7 @@ export interface Database {
     Enums: {
       pricing_plan_interval: 'day' | 'week' | 'month' | 'year';
       pricing_type: 'one_time' | 'recurring';
+      user_role: 'user' | 'admin';
       subscription_status:
         | 'trialing'
         | 'active'

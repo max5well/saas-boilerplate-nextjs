@@ -52,12 +52,12 @@ export async function sendEmail(options: SendEmailOptions): Promise<SendEmailRes
 
 // ─── Typed convenience senders ───────────────────────────────────────────────
 
-import { VerificationEmail } from '../verification-email';
 import { PasswordResetEmail } from '../password-reset-email';
-import { PaymentReceipt, type LineItem } from '../payment-receipt';
+import { type LineItem,PaymentReceipt } from '../payment-receipt';
+import { SubscriptionCanceled } from '../subscription-canceled';
 import { SubscriptionStarted } from '../subscription-started';
 import { SubscriptionUpdated } from '../subscription-updated';
-import { SubscriptionCanceled } from '../subscription-canceled';
+import { VerificationEmail } from '../verification-email';
 
 export async function sendVerificationEmail(
   to: string,

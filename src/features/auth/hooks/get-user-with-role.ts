@@ -1,4 +1,5 @@
 import { createSupabaseServerClient } from '@/libs/supabase/supabase-server-client';
+import { Tables } from '@/libs/supabase/types';
 
 import { type UserRole } from '../config/auth-config';
 
@@ -32,12 +33,14 @@ export async function getUserWithRole(): Promise<UserWithRole | null> {
 
   if (error || !data) return null;
 
+  const user = data as Tables<'users'>;
+
   return {
-    id: data.id,
-    full_name: data.full_name,
-    avatar_url: data.avatar_url,
-    role: (data as any).role ?? 'user',
-    billing_address: data.billing_address,
-    payment_method: data.payment_method,
+    id: user.id,
+    full_name: user.full_name,
+    avatar_url: user.avatar_url,
+    role: user.role ?? 'user',
+    billing_address: user.billing_address,
+    payment_method: user.payment_method,
   };
 }

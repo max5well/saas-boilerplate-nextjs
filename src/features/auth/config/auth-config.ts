@@ -31,7 +31,7 @@ export const oauthProviders: OAuthProviderConfig[] = [
 ];
 
 /** Routes that require authentication */
-export const protectedRoutes = ['/account', '/dashboard', '/manage-subscription'];
+export const protectedRoutes = ['/account', '/manage-subscription'];
 
 /** Routes that require admin role */
 export const adminRoutes = ['/admin'];

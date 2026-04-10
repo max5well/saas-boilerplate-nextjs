@@ -2,10 +2,10 @@ import Stripe from 'stripe';
 
 import { upsertUserSubscription } from '@/features/account/controllers/upsert-user-subscription';
 import {
+  sendPaymentReceiptEmail,
+  sendSubscriptionCanceledEmail,
   sendSubscriptionStartedEmail,
   sendSubscriptionUpdatedEmail,
-  sendSubscriptionCanceledEmail,
-  sendPaymentReceiptEmail,
 } from '@/features/emails/utils/email-sender';
 import { upsertPrice } from '@/features/pricing/controllers/upsert-price';
 import { upsertProduct } from '@/features/pricing/controllers/upsert-product';
@@ -157,7 +157,7 @@ async function sendSubscriptionEmail(
         currency,
         nextBillingDate: formatDate(periodEnd),
         trialEndDate: subscription.trial_end ? formatDate(subscription.trial_end) : undefined,
-        dashboardUrl: `${baseUrl}/dashboard`,
+        dashboardUrl: `${baseUrl}/account`,
         billingPortalUrl: `${baseUrl}/account`,
       });
     } else if (action === 'updated' && previousAttributes) {
