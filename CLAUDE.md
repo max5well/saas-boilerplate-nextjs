@@ -4,7 +4,17 @@
 
 A production-ready SaaS starter built on Next.js 15 (App Router), Supabase for auth/database, Stripe for subscriptions, and Resend + React Email for transactional emails. Clone it, update the config, and start building your product.
 
-## Quick start for a new project
+## Starting a new project
+
+Run `/onboard` to start the interactive setup wizard. It will walk you through:
+1. App name, description, and domain
+2. Pricing tiers and features
+3. Data model (tables, fields, relationships, plan limits)
+4. Auth providers and branding
+
+Then it applies everything to the codebase in one pass — config, migrations, feature modules, UI pages, and landing page copy.
+
+## Quick start (manual)
 
 1. Copy `.env.example` → `.env.local` and fill in your keys
 2. Update `src/config/site.ts` with your app name, description, URLs, and email sender
