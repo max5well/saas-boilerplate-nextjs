@@ -6,7 +6,7 @@ A production-ready SaaS starter built on Next.js 15 (App Router), Supabase for a
 
 ## Starting a new project
 
-Run `/onboard` to start the interactive setup wizard. It will walk you through:
+Run `/onboard-new-saas` to start the interactive setup wizard. It will walk you through:
 1. App name, description, and domain
 2. Pricing tiers and features
 3. Data model (tables, fields, relationships, plan limits)
