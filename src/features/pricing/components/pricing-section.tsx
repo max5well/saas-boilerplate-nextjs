@@ -13,13 +13,13 @@ export async function PricingSection({ isPricingPage }: { isPricingPage?: boolea
   return (
     <section className='relative rounded-lg bg-card py-8'>
       <div className='relative z-10 m-auto flex max-w-[1200px] flex-col items-center gap-8 px-4 pt-8 lg:pt-[140px]'>
-        <HeadingLevel className='max-w-4xl bg-gradient-to-br from-white to-neutral-200 bg-clip-text text-center text-4xl font-bold text-transparent lg:text-6xl'>
+        <HeadingLevel className='max-w-4xl text-center text-3xl font-bold text-white sm:text-4xl lg:bg-gradient-to-br lg:from-white lg:to-neutral-200 lg:bg-clip-text lg:text-6xl lg:text-transparent'>
           Predictable pricing for every use case.
         </HeadingLevel>
-        <p className='text-center text-xl'>
+        <p className='text-center text-base sm:text-xl'>
           Find a plan that fits you. Upgrade at any time to enable additional features.
         </p>
-        <div className='flex w-full flex-col items-center justify-center gap-2 lg:flex-row lg:gap-8'>
+        <div className='flex w-full flex-col items-center justify-center gap-4 lg:flex-row lg:gap-8'>
           {products.map((product) => {
             return <PricingCard key={product.id} product={product} createCheckoutAction={createCheckoutAction} />;
           })}

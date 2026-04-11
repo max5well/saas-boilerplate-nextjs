@@ -1,10 +1,12 @@
 'use server';
 
 import { createElement } from 'react';
+import { headers } from 'next/headers';
 import { z } from 'zod';
 
 import { siteConfig } from '@/config/site';
 import { sendEmail } from '@/features/emails/utils/email-sender';
+import { getClientIp, rateLimit } from '@/libs/rate-limit/rate-limiter';
 import { ActionResponse } from '@/types/action-response';
 
 import { ContactFormEmail } from '../components/contact-form-email';
@@ -16,6 +18,14 @@ const contactSchema = z.object({
 });
 
 export async function submitContactForm(formData: FormData): Promise<ActionResponse> {
+  // Rate limit: 5 submissions per minute per IP
+  const headerStore = await headers();
+  const ip = getClientIp(headerStore);
+  const { success } = rateLimit(`contact:${ip}`, 5);
+  if (!success) {
+    return { data: null, error: { message: 'Too many requests. Please wait a moment and try again.' } };
+  }
+
   const parsed = contactSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),

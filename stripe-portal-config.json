@@ -1,0 +1,50 @@
+{
+  "_meta": {
+    "template_version": 0
+  },
+  "fixtures": [
+    {
+      "name": "portal_config",
+      "path": "/v1/billing_portal/configurations",
+      "method": "post",
+      "params": {
+        "business_profile": {
+          "headline": "Manage your subscription"
+        },
+        "features": {
+          "customer_update": {
+            "allowed_updates": ["email", "address", "phone", "tax_id"],
+            "enabled": true
+          },
+          "invoice_history": {
+            "enabled": true
+          },
+          "payment_method_update": {
+            "enabled": true
+          },
+          "subscription_cancel": {
+            "enabled": true,
+            "mode": "at_period_end",
+            "cancellation_reason": {
+              "enabled": true,
+              "options": [
+                "too_expensive",
+                "missing_features",
+                "switched_service",
+                "unused",
+                "other"
+              ]
+            }
+          },
+          "subscription_update": {
+            "enabled": true,
+            "default_allowed_updates": ["price", "promotion_code"],
+            "proration_behavior": "create_prorations",
+            "products": []
+          }
+        },
+        "default_return_url": "http://localhost:3000/account"
+      }
+    }
+  ]
+}

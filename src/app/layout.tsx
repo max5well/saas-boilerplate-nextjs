@@ -18,8 +18,29 @@ import '@/styles/globals.css';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: siteConfig.name,
+  title: {
+    default: siteConfig.name,
+    template: `%s — ${siteConfig.name}`,
+  },
   description: siteConfig.description,
+  metadataBase: new URL(siteConfig.url),
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.name,
+    description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
@@ -61,7 +82,7 @@ function Footer() {
         <div>
           <Logo />
         </div>
-        <div className='grid grid-cols-2 gap-8 sm:grid-cols-4 lg:grid-cols-4 lg:gap-16'>
+        <div className='grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 lg:gap-16'>
           <div className='flex flex-col gap-2 lg:gap-6'>
             <div className='font-semibold text-foreground'>Product</div>
             <nav className='flex flex-col gap-2 lg:gap-6'>

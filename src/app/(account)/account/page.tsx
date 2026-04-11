@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
+import { SubscriptionBanner } from '@/features/account/components/subscription-banner';
 import { getSession } from '@/features/account/controllers/get-session';
 import { getSubscription } from '@/features/account/controllers/get-subscription';
 import { PricingCard } from '@/features/pricing/components/price-card';
@@ -34,7 +35,9 @@ export default async function AccountPage() {
     <section className='rounded-lg bg-card px-4 py-16'>
       <h1 className='mb-8 text-center'>Account</h1>
 
-      <div className='flex flex-col gap-4'>
+      <div className='m-auto flex max-w-3xl flex-col gap-4'>
+        <SubscriptionBanner subscription={subscription} />
+
         <Card
           title='Your Plan'
           footer={
@@ -55,6 +58,19 @@ export default async function AccountPage() {
             <p>You don&apos;t have an active subscription</p>
           )}
         </Card>
+
+        <Card
+          title='Settings'
+          footer={
+            <Button size='sm' variant='secondary' asChild>
+              <Link href='/account/settings'>Edit profile</Link>
+            </Button>
+          }
+        >
+          <p className='text-sm text-muted-foreground'>
+            {session.user.email}
+          </p>
+        </Card>
       </div>
     </section>
   );
@@ -69,7 +85,7 @@ function Card({
   footer?: ReactNode;
 }>) {
   return (
-    <div className='m-auto w-full max-w-3xl rounded-md bg-muted'>
+    <div className='w-full rounded-md bg-muted'>
       <div className='p-4'>
         <h2 className='mb-1 text-xl font-semibold'>{title}</h2>
         <div className='py-4'>{children}</div>

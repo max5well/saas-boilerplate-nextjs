@@ -176,6 +176,8 @@ export interface Database {
         Row: {
           avatar_url: string | null;
           billing_address: Json | null;
+          email_marketing: boolean;
+          email_product_updates: boolean;
           full_name: string | null;
           id: string;
           payment_method: Json | null;
@@ -184,6 +186,8 @@ export interface Database {
         Insert: {
           avatar_url?: string | null;
           billing_address?: Json | null;
+          email_marketing?: boolean;
+          email_product_updates?: boolean;
           full_name?: string | null;
           id: string;
           payment_method?: Json | null;
@@ -192,6 +196,8 @@ export interface Database {
         Update: {
           avatar_url?: string | null;
           billing_address?: Json | null;
+          email_marketing?: boolean;
+          email_product_updates?: boolean;
           full_name?: string | null;
           id?: string;
           payment_method?: Json | null;
