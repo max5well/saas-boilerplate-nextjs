@@ -29,14 +29,17 @@ const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '
 export async function POST(req: Request) {
   const body = await req.text();
   const sig = req.headers.get('stripe-signature') as string;
-  const webhookSecret = getEnvVar(process.env.STRIPE_WEBHOOK_SECRET, 'STRIPE_WEBHOOK_SECRET');
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   let event: Stripe.Event;
 
   try {
-    if (!sig || !webhookSecret) return;
+    if (!sig || !webhookSecret) {
+      return Response.json({ error: 'Missing signature or webhook secret' }, { status: 400 });
+    }
     event = stripeAdmin.webhooks.constructEvent(body, sig, webhookSecret);
   } catch (error) {
-    return Response.json(`Webhook Error: ${(error as any).message}`, { status: 400 });
+    console.error('[Webhook] Signature verification failed:', (error as Error).message);
+    return Response.json({ error: 'Invalid webhook signature' }, { status: 400 });
   }
 
   if (relevantEvents.has(event.type)) {
@@ -102,10 +105,10 @@ export async function POST(req: Request) {
           throw new Error('Unhandled relevant event!');
       }
     } catch (error) {
-      console.error(error);
-      return Response.json('Webhook handler failed. View your nextjs function logs.', {
-        status: 400,
-      });
+      console.error('[Webhook] Handler failed:', error);
+      // Return 500 so Stripe retries on transient failures (DB down, API timeout, etc.)
+      // Returning 400 tells Stripe the webhook is invalid and can disable the endpoint.
+      return Response.json({ error: 'Webhook handler failed' }, { status: 500 });
     }
   }
   return Response.json({ received: true });

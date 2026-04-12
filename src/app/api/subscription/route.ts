@@ -1,7 +1,9 @@
+import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { getSession } from '@/features/account/controllers/get-session';
 import { getSubscription } from '@/features/account/controllers/get-subscription';
+import { getClientIp, rateLimit } from '@/libs/rate-limit/rate-limiter';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,6 +16,13 @@ export const dynamic = 'force-dynamic';
  * Returns: { status, priceId, productId, cancelAtPeriodEnd, currentPeriodEnd } or { status: null }
  */
 export async function GET() {
+  const headerStore = await headers();
+  const ip = getClientIp(headerStore);
+  const { success } = rateLimit(`api:sub:${ip}`, 30);
+  if (!success) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
+
   const session = await getSession();
 
   if (!session) {

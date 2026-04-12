@@ -14,24 +14,17 @@ export default async function AdminPage() {
 
   const supabase = getSupabaseAdmin();
 
-  const { data: users, error } = await supabase
-    .from('users')
-    .select('id, full_name, role')
-    .order('id')
-    .limit(100);
+  // Run all queries in parallel
+  const [usersResult, usersCountResult, subsCountResult] = await Promise.all([
+    supabase.from('users').select('id, full_name, role').order('id').limit(100),
+    supabase.from('users').select('*', { count: 'exact', head: true }),
+    supabase.from('subscriptions').select('*', { count: 'exact', head: true }).in('status', ['active', 'trialing']),
+  ]);
 
-  if (error) {
-    console.error('[Admin] Failed to fetch users:', error);
-  }
-
-  const { count: totalUsers } = await supabase
-    .from('users')
-    .select('*', { count: 'exact', head: true });
-
-  const { count: totalSubscriptions } = await supabase
-    .from('subscriptions')
-    .select('*', { count: 'exact', head: true })
-    .in('status', ['active', 'trialing']);
+  const users = usersResult.data;
+  if (usersResult.error) console.error('[Admin] Failed to fetch users:', usersResult.error);
+  const totalUsers = usersCountResult.count;
+  const totalSubscriptions = subsCountResult.count;
 
   return (
     <section className='rounded-lg bg-card px-4 py-16'>
