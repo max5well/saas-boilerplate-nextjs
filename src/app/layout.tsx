@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { IoLogoFacebook, IoLogoInstagram, IoLogoTwitter } from 'react-icons/io5';
 
 import { Logo } from '@/components/logo';
+import { PostHogProvider } from '@/components/posthog-provider';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Toaster } from '@/components/ui/toaster';
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <Toaster />
         </ThemeProvider>
         <Analytics />
+        <PostHogProvider><span /></PostHogProvider>
       </body>
     </html>
   );

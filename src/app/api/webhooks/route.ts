@@ -9,8 +9,9 @@ import {
 } from '@/features/emails/utils/email-sender';
 import { upsertPrice } from '@/features/pricing/controllers/upsert-price';
 import { upsertProduct } from '@/features/pricing/controllers/upsert-product';
+import { log } from '@/libs/logger/logger';
 import { stripeAdmin } from '@/libs/stripe/stripe-admin';
-import { getEnvVar } from '@/utils/get-env-var';
+import * as Sentry from '@sentry/nextjs';
 
 const relevantEvents = new Set([
   'product.created',
@@ -38,7 +39,7 @@ export async function POST(req: Request) {
     }
     event = stripeAdmin.webhooks.constructEvent(body, sig, webhookSecret);
   } catch (error) {
-    console.error('[Webhook] Signature verification failed:', (error as Error).message);
+    log.error('Webhook signature verification failed', { error: (error as Error).message });
     return Response.json({ error: 'Invalid webhook signature' }, { status: 400 });
   }
 
@@ -105,7 +106,8 @@ export async function POST(req: Request) {
           throw new Error('Unhandled relevant event!');
       }
     } catch (error) {
-      console.error('[Webhook] Handler failed:', error);
+      Sentry.captureException(error, { tags: { source: 'stripe-webhook', eventType: event.type } });
+      log.error('Webhook handler failed', { eventType: event.type, error: (error as Error).message });
       // Return 500 so Stripe retries on transient failures (DB down, API timeout, etc.)
       // Returning 400 tells Stripe the webhook is invalid and can disable the endpoint.
       return Response.json({ error: 'Webhook handler failed' }, { status: 500 });
@@ -190,7 +192,7 @@ async function sendSubscriptionEmail(
       });
     }
   } catch (error) {
-    console.error(`[Email] Failed to send subscription ${action} email:`, error);
+    log.error(`Failed to send subscription ${action} email`, { error: (error as Error).message });
   }
 }
 
@@ -218,6 +220,6 @@ async function sendInvoiceReceiptEmail(invoice: Stripe.Invoice) {
       billingPortalUrl: `${baseUrl}/account`,
     });
   } catch (error) {
-    console.error('[Email] Failed to send payment receipt email:', error);
+    log.error('Failed to send payment receipt email', { error: (error as Error).message });
   }
 }
